@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <title>BINGO!</title>
+    
+<style>
+    body { background-color: navajowhite;}
+    #mainBoard {width: 1200px; height: auto;}
+    button {width: 150px; height: 70px; background-color: yellow; border:solid; font-weight: bold; font-size: 16pt;}
+    .buttonPressed{background-color: teal;}
+    #search {background-color: crimson; }
+    #result {position:absolute; width: 150px; height: 50px;background-color: aliceblue; font-size: 30pt; font-weight: bold; text-align: center; padding-top: 10px; padding-bottom: 10px; left: 160px; top: 710px;}
+    #userBoard button {width: 70px;}
+    #userBoard {position: absolute; top: 20px; right: 20px; width: 40%; background-color: pink;}
+    #userBoard div{margin-top: 50px;}
+    #player {background-color: chocolate;}
+
+</style>
+
+</head>
+
+<body>
+    <div id = "mainBoard">
+        
+
+
+    </div>
+    <button id="search">Next Number</button>
+    <div id="result"></div>
+    <div><button id="player"> add player </button></div>
+    <div id="userBoard">
+    </div>
+
+    <script>
+        let i = 1
+        function board(){while(i<=76){
+        x = document.createElement('button')
+        x.innerText = i
+        i++
+        let y = document.getElementById("mainBoard")
+        y.appendChild(x)
+        }}
+        window.onload = board()
+        let mainBoard = document.getElementById("mainBoard")
+        
+        mainBoard.addEventListener('click', function(e) {
+            x = e.target.innerText
+            console.log(x)
+            y = mainBoard.getElementsByTagName('button')
+            for(i = 0; i<76; i++){
+                if(x == y[i].innerText){
+                    y[i].classList.add('buttonPressed')
+                }
+            }
+
+        },false)
+        let search = document.querySelector('#search')
+        x = search.addEventListener('click',function (){
+            x = Math.floor(Math.random()*76) + 1
+            z = document.getElementsByTagName('button')
+            y = document.querySelector('#result')
+            y.innerText = x
+            for(i = 0; i<z.length; i++){
+                if(y.innerText == z[i].innerText){
+                    z[i].classList.add('buttonPressed')
+                }
+            }
+        },false)
+        let players = document.querySelector('#player')
+        let p = 1
+        function valueOfP(){
+            x= 1
+            return x
+        }
+            players.addEventListener('click',function(){
+            let i = 0
+            let y = document.getElementById("userBoard")
+            z = document.createElement('div')
+            y.appendChild(z)
+
+        while(i<24){
+        x = document.createElement('button')
+        x.innerText = Math.floor(Math.random()*76)+1
+        i++
+        z.appendChild(x)
+        }
+        },false)
+
+    </script>
+</body>
+
+</html>
