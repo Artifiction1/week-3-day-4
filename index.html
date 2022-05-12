@@ -28,10 +28,16 @@
     <button id="search">Next Number</button>
     <div id="result"></div>
     <div><button id="player"> add player </button></div>
+    <button onclick="bubbleSort()"> sort</button></div>
+    
     <div id="userBoard">
     </div>
 
+
+
+
     <script>
+        // function for setting the bingo field
         let i = 1
         function board(){while(i<=76){
         x = document.createElement('button')
@@ -40,9 +46,13 @@
         let y = document.getElementById("mainBoard")
         y.appendChild(x)
         }}
+        
+        // making the field load on windows loading
         window.onload = board()
         let mainBoard = document.getElementById("mainBoard")
         
+        
+        // checking if event location on main board would work
         mainBoard.addEventListener('click', function(e) {
             x = e.target.innerText
             console.log(x)
@@ -54,9 +64,11 @@
             }
 
         },false)
+
+        // getting random numbers for bingo guesses and checking off all who are right
         let search = document.querySelector('#search')
         x = search.addEventListener('click',function (){
-            x = Math.floor(Math.random()*76) + 1
+            x = getX(randoms)
             z = document.getElementsByTagName('button')
             y = document.querySelector('#result')
             y.innerText = x
@@ -66,12 +78,15 @@
                 }
             }
         },false)
+        
         let players = document.querySelector('#player')
+        /* 
         let p = 1
         function valueOfP(){
             x= 1
             return x
-        }
+        } */ 
+         // adding new players
             players.addEventListener('click',function(){
             let i = 0
             let y = document.getElementById("userBoard")
@@ -80,12 +95,55 @@
 
         while(i<24){
         x = document.createElement('button')
-        x.innerText = Math.floor(Math.random()*76)+1
+        x.innerText = getX(randoms)
         i++
         z.appendChild(x)
         }
+        randoms = []
+            for(let i=1; i<=76; i++){
+            randoms.push(i)}
         },false)
 
+
+        // defining the array position the for limited random number
+        let randoms = []
+            for(let i=1; i<=76; i++){
+            randoms.push(i)}
+
+        function randomNoRepeat(long){
+            m = Math.floor(Math.random()*long)
+            return m
+            }
+        // geting the random number for the array
+        function getX(array){
+        let a = []
+        a = array
+        let i = randomNoRepeat(a.length)
+        let j = a[i]
+        a.splice(i,1);
+        return j
+        }
+        // sorting players cards
+        function bubbleSort(){
+            let list = document.getElementById('userBoard')
+            let liar = list.getElementsByTagName('div')
+            k=0
+            while (k<liar.length){
+            let liars = liar[k]
+            let tasks = liars.getElementsByTagName('button')
+            let i = 0
+            let x = ""
+            let y = ""
+            while (i<tasks.length){
+              let j = 0
+            while(j < tasks.length - i - 1){
+            if (parseInt(tasks[j].innerText) > parseInt(tasks[j + 1].innerText)){
+            let x = tasks[j].innerText
+            let y = tasks[j+1].innerText
+            tasks[j].innerText = y
+            tasks[j+1].innerText = x
+            }j++
+            }i++}k++}}
     </script>
 </body>
 
